@@ -42,12 +42,13 @@ public class gamepannel implements ActionListener {
 
         buttonPannel.setLayout(new GridLayout(3, 3));
         buttonPannel.setBackground(new Color(150, 150, 150));
+        buttonPannel.setFocusable(false);
+
 
         for (int i = 0; i < 9; i++) {
             buttons[i] = new JButton();
             buttons[i].setFont(new Font("MV Boli", Font.BOLD, 120));
             buttonPannel.add(buttons[i]);
-            buttonPannel.setFocusable(false);
             buttons[i].setFocusable(false);
             buttons[i].addActionListener(this);
         }
