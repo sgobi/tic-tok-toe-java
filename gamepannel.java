@@ -47,6 +47,7 @@ public class gamepannel implements ActionListener {
             buttons[i].setFont(new Font("MV Boli", Font.BOLD, 120));
             buttonPannel.add(buttons[i]);
             buttonPannel.setFocusable(false);
+            buttons[i].setFocusable(false);
             buttons[i].addActionListener(this);
         }
 
@@ -61,6 +62,55 @@ public class gamepannel implements ActionListener {
     public void gameStart(){
         firstTurn();
     }
+
+
+
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+
+        for (int i = 0 ; i<9;i++)
+        {
+            if(ae.getSource()==buttons[i]){
+
+                if(playerOneTurn){
+                    
+                    if(buttons[i].getText()==""){
+                        buttons[i].setForeground(new Color(255,0,0));
+                        buttons[i].setText("X");
+                        playerOneTurn=false;
+                        textLabel.setText("O Turn");
+                        check();
+                    }
+
+                }
+                else{
+
+                    if(buttons[i].getText()==""){
+                        buttons[i].setForeground(new Color(0,0,255));
+                        buttons[i].setText("O");
+                        playerOneTurn=true;
+                        textLabel.setText("X Turn");
+                        check();
+                    }
+                }
+
+
+            }
+           
+        }
+
+
+
+    }
+
+
+    
+
+
+
 public void firstTurn(){
         try {
             //  int palyer =random.nextInt(2); //here 0 or 1 that mean O or X
@@ -70,21 +120,208 @@ public void firstTurn(){
     if (random.nextInt(2)==0) {
         playerOneTurn=true;
         textLabel.setText("X Turn");
+  
+
     }
     else{
         playerOneTurn=false;
         textLabel.setText("O Turn");
+      
+
     }
 }
-public void check(){}
+public void check(){
+// *******************************************************************************************************************************************
+//***********************************************xPlayerWins**********************************************************************************
+// *******************************************************************************************************************************************
+//Horizontal
+System.out.println("hi");
 
-public void xPlayerWins(){}
-public void oPlayerWins(){}
+if(
+    (buttons[0].getText().equals("X"))&&
+    (buttons[1].getText().equals("X"))&&
+    (buttons[2].getText().equals("X"))
+        ){
+            xPlayerWins(0,1,2);
+        }
+    
+        if(
+    (buttons[3].getText().equals("X"))&&
+    (buttons[4].getText().equals("X"))&&
+    (buttons[5].getText().equals("X"))
+        ){
+            xPlayerWins(3,4,5);
+        }
+    
+        if(
+    (buttons[6].getText().equals("X"))&&
+    (buttons[7].getText().equals("X"))&&
+    (buttons[8].getText().equals("X"))
+        ){
+            xPlayerWins(6,7,8);
+        }
+    
+    
+    
+    //Vertical
+    
+    
+    if(
+        (buttons[0].getText().equals("X"))&&
+        (buttons[3].getText().equals("X"))&&
+        (buttons[6].getText().equals("X"))
+            ){
+                xPlayerWins(0,3,6);
+            }
+        
+            if(
+        (buttons[1].getText().equals("X"))&&
+        (buttons[4].getText().equals("X"))&&
+        (buttons[7].getText().equals("X"))
+            ){
+                xPlayerWins(1,4,7);
+            }
+        
+            if(
+        (buttons[2].getText().equals("X"))&&
+        (buttons[5].getText().equals("X"))&&
+        (buttons[8].getText().equals("X"))
+            ){
+                xPlayerWins(2,5,8);
+            }
+    
+    
+    
+    //Across
+    if(
+        (buttons[0].getText().equals("X"))&&
+        (buttons[4].getText().equals("X"))&&
+        (buttons[8].getText().equals("X"))
+            ){
+                xPlayerWins(0,4,8);
+            }
+        
+            if(
+        (buttons[2].getText().equals("X"))&&
+        (buttons[4].getText().equals("X"))&&
+        (buttons[6].getText().equals("X"))
+            ){
+                xPlayerWins(2,4,6);
+            }
+    
+    
+    
+    
+    // *******************************************************************************************************************************************
+    //***********************************************oPlayerWins**********************************************************************************
+    // *******************************************************************************************************************************************
+    //Horizontal
+    if(
+        (buttons[0].getText().equals("O"))&&
+        (buttons[1].getText().equals("O"))&&
+        (buttons[2].getText().equals("O"))
+            ){
+                oPlayerWins(0,1,2);
+            }
+        
+            if(
+        (buttons[3].getText().equals("O"))&&
+        (buttons[4].getText().equals("O"))&&
+        (buttons[5].getText().equals("O"))
+            ){
+                oPlayerWins(3,4,5);
+            }
+        
+            if(
+        (buttons[6].getText().equals("O"))&&
+        (buttons[7].getText().equals("O"))&&
+        (buttons[8].getText().equals("O"))
+            ){
+                oPlayerWins(6,7,8);
+            }
+        
+        
+        
+        //Vertical
+        
+        
+        if(
+            (buttons[0].getText().equals("O"))&&
+            (buttons[3].getText().equals("O"))&&
+            (buttons[6].getText().equals("O"))
+                ){
+                    oPlayerWins(0,3,6);
+                }
+            
+                if(
+            (buttons[1].getText().equals("O"))&&
+            (buttons[4].getText().equals("O"))&&
+            (buttons[7].getText().equals("O"))
+                ){
+                    oPlayerWins(1,4,7);
+                }
+            
+                if(
+            (buttons[2].getText().equals("O"))&&
+            (buttons[5].getText().equals("O"))&&
+            (buttons[8].getText().equals("O"))
+                ){
+                    oPlayerWins(2,5,8);
+                }
+        
+        
+        
+        //Across
+        if(
+            (buttons[0].getText().equals("O"))&&
+            (buttons[4].getText().equals("O"))&&
+            (buttons[8].getText().equals("O"))
+                ){
+                    oPlayerWins(0,4,8);
+                }
+            
+                if(
+            (buttons[2].getText().equals("O"))&&
+            (buttons[4].getText().equals("O"))&&
+            (buttons[6].getText().equals("O"))
+                ){
+                    oPlayerWins(2,4,6);
+                }
+        
+    
+    
+    
+    
+
+
+}
+
+public void xPlayerWins(int a, int b, int c){
+System.out.println("xPlayerWins");
+buttons[a].setBackground(new Color(0,255,0));
+buttons[b].setBackground(new Color(0,255,0));
+buttons[c].setBackground(new Color(0,255,0));
+
+for(int i=0; i<9;i++){
+    buttons[i].setEnabled(false);
+}
+textLabel.setText("X is Winner Of The Game");
 
 
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+}
+public void oPlayerWins(int a, int b, int c){
+    System.out.println("xPlayerWins");
+
+    buttons[a].setBackground(new Color(255,0,0));
+buttons[b].setBackground(new Color(255,0,0));
+buttons[c].setBackground(new Color(255,0,0));
+
+for(int i=0; i<9;i++){
+    buttons[i].setEnabled(false);
+}
+textLabel.setText("O is Winner Of The Game");
+
+}
+
 }
