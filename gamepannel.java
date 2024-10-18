@@ -44,7 +44,6 @@ public class gamepannel implements ActionListener {
         buttonPannel.setBackground(new Color(150, 150, 150));
         buttonPannel.setFocusable(false);
 
-
         for (int i = 0; i < 9; i++) {
             buttons[i] = new JButton();
             buttons[i].setFont(new Font("MV Boli", Font.BOLD, 120));
@@ -114,116 +113,45 @@ public class gamepannel implements ActionListener {
         }
     }
 
+    private boolean checkCombination(int a, int b, int c, String player) {
+        return buttons[a].getText().equals(player) && buttons[b].getText().equals(player) && buttons[c].getText().equals(player);
+    }
+
     public void check() {
-// *******************************************************************************************************************************************
-//***********************************************xPlayerWins**********************************************************************************
-// *******************************************************************************************************************************************
-//Horizontal
+        String[][] winningCombos = {
+            {"0", "1", "2"}, {"3", "4", "5"}, {"6", "7", "8"}, // Horizontal
+            {"0", "3", "6"}, {"1", "4", "7"}, {"2", "5", "8"}, // Vertical
+            {"0", "4", "8"}, {"2", "4", "6"} // Diagonal
+        };
+        for (String[] combo : winningCombos) {
+            int a = Integer.parseInt(combo[0]);
+            int b = Integer.parseInt(combo[1]);
+            int c = Integer.parseInt(combo[2]);
 
-        if ((buttons[0].getText().equals("X"))
-                && (buttons[1].getText().equals("X"))
-                && (buttons[2].getText().equals("X"))) {
-            xPlayerWins(0, 1, 2);
+            if (checkCombination(a, b, c, "X")) {
+                xPlayerWins(a, b, c);
+                return;
+            } else if (checkCombination(a, b, c, "O")) {
+                oPlayerWins(a, b, c);
+                return;
+            }
+
+        }
+        // Check for draw
+        boolean draw = true;
+        for (int i = 0; i < 9; i++) {
+            if (buttons[i].getText().equals("")) {
+                draw = false; // If any button is still empty, it's not a draw yet
+                break;
+            }
         }
 
-        if ((buttons[3].getText().equals("X"))
-                && (buttons[4].getText().equals("X"))
-                && (buttons[5].getText().equals("X"))) {
-            xPlayerWins(3, 4, 5);
+        if (draw) {
+            textLabel.setText("It's a Draw!");  // Display the draw message
+            for (int i = 0; i < 9; i++) {
+                buttons[i].setEnabled(false);  // Disable all buttons after a draw
+            }
         }
-
-        if ((buttons[6].getText().equals("X"))
-                && (buttons[7].getText().equals("X"))
-                && (buttons[8].getText().equals("X"))) {
-            xPlayerWins(6, 7, 8);
-        }
-
-        //Vertical
-        if ((buttons[0].getText().equals("X"))
-                && (buttons[3].getText().equals("X"))
-                && (buttons[6].getText().equals("X"))) {
-            xPlayerWins(0, 3, 6);
-        }
-
-        if ((buttons[1].getText().equals("X"))
-                && (buttons[4].getText().equals("X"))
-                && (buttons[7].getText().equals("X"))) {
-            xPlayerWins(1, 4, 7);
-        }
-
-        if ((buttons[2].getText().equals("X"))
-                && (buttons[5].getText().equals("X"))
-                && (buttons[8].getText().equals("X"))) {
-            xPlayerWins(2, 5, 8);
-        }
-
-        //Across
-        if ((buttons[0].getText().equals("X"))
-                && (buttons[4].getText().equals("X"))
-                && (buttons[8].getText().equals("X"))) {
-            xPlayerWins(0, 4, 8);
-        }
-
-        if ((buttons[2].getText().equals("X"))
-                && (buttons[4].getText().equals("X"))
-                && (buttons[6].getText().equals("X"))) {
-            xPlayerWins(2, 4, 6);
-        }
-
-        // *******************************************************************************************************************************************
-        //***********************************************oPlayerWins**********************************************************************************
-        // *******************************************************************************************************************************************
-        //Horizontal
-        if ((buttons[0].getText().equals("O"))
-                && (buttons[1].getText().equals("O"))
-                && (buttons[2].getText().equals("O"))) {
-            oPlayerWins(0, 1, 2);
-        }
-
-        if ((buttons[3].getText().equals("O"))
-                && (buttons[4].getText().equals("O"))
-                && (buttons[5].getText().equals("O"))) {
-            oPlayerWins(3, 4, 5);
-        }
-
-        if ((buttons[6].getText().equals("O"))
-                && (buttons[7].getText().equals("O"))
-                && (buttons[8].getText().equals("O"))) {
-            oPlayerWins(6, 7, 8);
-        }
-
-        //Vertical
-        if ((buttons[0].getText().equals("O"))
-                && (buttons[3].getText().equals("O"))
-                && (buttons[6].getText().equals("O"))) {
-            oPlayerWins(0, 3, 6);
-        }
-
-        if ((buttons[1].getText().equals("O"))
-                && (buttons[4].getText().equals("O"))
-                && (buttons[7].getText().equals("O"))) {
-            oPlayerWins(1, 4, 7);
-        }
-
-        if ((buttons[2].getText().equals("O"))
-                && (buttons[5].getText().equals("O"))
-                && (buttons[8].getText().equals("O"))) {
-            oPlayerWins(2, 5, 8);
-        }
-
-        //Across
-        if ((buttons[0].getText().equals("O"))
-                && (buttons[4].getText().equals("O"))
-                && (buttons[8].getText().equals("O"))) {
-            oPlayerWins(0, 4, 8);
-        }
-
-        if ((buttons[2].getText().equals("O"))
-                && (buttons[4].getText().equals("O"))
-                && (buttons[6].getText().equals("O"))) {
-            oPlayerWins(2, 4, 6);
-        }
-
     }
 
     public void xPlayerWins(int a, int b, int c) {
